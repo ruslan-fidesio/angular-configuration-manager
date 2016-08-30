@@ -47,7 +47,7 @@ angularConfigurationManager.factory(
             resetConfiguration : function (currentConfiguration) {
                 Object.keys(currentConfiguration).forEach(
                     function (key) {
-                        if (!['_environmentConfiguration', '_additionalConfigurations'].includes(key)) {
+                        if (['_environmentConfiguration', '_additionalConfigurations'].indexOf(key) === -1) {
                             delete currentConfiguration[key];
                         }
                     }
