@@ -1,0 +1,29 @@
+{
+  "name": "angular-configuration-manager",
+  "version": "0.1.1",
+  "description": "Environment and local configuration manager used by teams working on the same angular (or Ionic) project.",
+  "author": "Ruslan Kassimov <ruslan.kassimov@fidesio.com>",
+  "main": [
+    "angular-configuration-manager.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ruslan-fidesio/angular-configuration-manager.git"
+  },
+  "ignore": [
+    ".gitignore",
+    "LICENSE",
+    "README.md"
+  ],
+  "dependencies": {},
+  "keywords": [
+    "web",
+    "html5",
+    "angularjs",
+    "angular",
+    "ionic",
+    "configuration"
+  ],
+  "license": "MIT",
+  "private": false
+}
