@@ -92,9 +92,86 @@ After that, the configuration will look like this :
     }
 ```
 
+## Global configuration
+
+In some cases you will need a global configuration shared between environments :
+
+```javascript
+    var Configuration = ConfigurationManager.createNewConfiguration();
+
+    // GLOBAL configuration
+    ConfigurationManager.setGlobalConfiguration(
+        Configuration,
+        {
+            iAmGlobal : true,
+            debug : false
+        }
+    );
+
+    // Initial DEV configuration
+    ConfigurationManager.addEnvironmentConfiguration(
+        Configuration,
+        'dev',
+        {
+            api : {
+                url : 'http://localhost/api'
+            },
+            debug : true
+        }
+    );
+
+    ConfigurationManager.loadEnvironment(Configuration, 'dev');
+```
+
+After that, the configuration will look like this :
+
+```javascript
+    {
+        api : {
+            url : 'http://localhost/api'
+        },
+        debug : true,
+        iAmGlobal : true
+    }
+```
+
+__You could also use the global configuration alone :__
+
+```javascript
+    var Configuration = ConfigurationManager.createNewConfiguration();
+
+    // GLOBAL configuration
+    ConfigurationManager.setGlobalConfiguration(
+        Configuration,
+        {
+            iAmGlobal : true,
+            debug : false
+        }
+    );
+
+    ConfigurationManager.loadGlobal(Configuration);
+```
+
+After that, the configuration will look like this :
+
+```javascript
+    {
+        debug : false,
+        iAmGlobal : true
+    }
+```
+
+## Merge order
+
+1. Global configuration
+2. Environment configuration
+3. (foreach) Previously applied additional configuration
+
 ## Functions reference
 
 - `createNewConfiguration` : Creates new configuration object.
+- `setGlobalConfiguration` : Set shared configuration between environments.
+- `loadGlobal` : Resets the configuration to global configuration.
 - `addEnvironmentConfiguration` : Adds/Replaces initial environment configuration.
 - `loadEnvironment` : Resets the configuration to initial environment configuration.
 - `applyConfiguration` : Applies custom configuration on top of the current configuration (can be used multiples times).

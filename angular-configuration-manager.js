@@ -33,6 +33,7 @@ angularConfigurationManager.factory(
             },
             createNewConfiguration : function () {
                 var Configuration = {
+                    _globalConfiguration : {},
                     _environmentConfiguration : {},
                     _additionalConfigurations : []
                 };
@@ -44,17 +45,33 @@ angularConfigurationManager.factory(
                     currentConfiguration._environmentConfiguration[environment] = environmentConfiguration;
                 }
             },
+            setGlobalConfiguration : function (currentConfiguration, globalConfiguration) {
+                if (typeof globalConfiguration === 'object') {
+                    currentConfiguration._globalConfiguration = globalConfiguration;
+                }
+            },
             resetConfiguration : function (currentConfiguration) {
                 Object.keys(currentConfiguration).forEach(
                     function (key) {
-                        if (['_environmentConfiguration', '_additionalConfigurations'].indexOf(key) === -1) {
+                        if (['_environmentConfiguration', '_additionalConfigurations', '_globalConfiguration'].indexOf(key) === -1) {
                             delete currentConfiguration[key];
                         }
                     }
                 )
             },
+            loadGlobal : function (currentConfiguration) {
+                ConfigurationManager.resetConfiguration(currentConfiguration);
+                ConfigurationManager.mergeObjects(
+                    currentConfiguration,
+                    currentConfiguration._globalConfiguration
+                );
+            },
             loadEnvironment : function (currentConfiguration, environment) {
                 ConfigurationManager.resetConfiguration(currentConfiguration);
+                ConfigurationManager.mergeObjects(
+                    currentConfiguration,
+                    currentConfiguration._globalConfiguration
+                );
                 ConfigurationManager.mergeObjects(
                     currentConfiguration,
                     currentConfiguration._environmentConfiguration[environment]
